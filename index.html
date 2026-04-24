@@ -10,21 +10,34 @@
 
 <style>
 body {
-    background: linear-gradient(to right, #fceabb, #f8b500);
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f7fa;
 }
+
 .navbar {
-    background-color: #ff9800;
+    background: linear-gradient(90deg, #ff7e5f, #feb47b);
 }
-.section {
-    padding: 50px;
+
+.hero {
+    background: linear-gradient(to right, #ffecd2, #fcb69f);
+    padding: 80px 20px;
+    text-align: center;
 }
+
 .logo {
-    width: 90px;
+    width: 80px;
     margin: 10px;
 }
+
 .card {
-    border-radius: 15px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
+
+.section {
+    padding: 60px 0;
+}
+
 </style>
 </head>
 
@@ -33,31 +46,32 @@ body {
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark">
 <div class="container">
-<a class="navbar-brand">TB Insight Kota Bandung</a>
-<div>
-<a class="nav-link text-white" href="#home">Home</a>
-<a class="nav-link text-white" href="#edukasi">Edukasi</a>
-<a class="nav-link text-white" href="#dashboard">Dashboard</a>
-</div>
+<a class="navbar-brand fw-bold">TB Insight</a>
 </div>
 </nav>
 
-<!-- HOME -->
-<section id="home" class="section text-center">
-<div class="container">
-
+<!-- HERO -->
+<section class="hero">
 <img src="Logo Kota Bandung.webp" class="logo">
 <img src="Logo UBK.jpg" class="logo">
 <img src="logo kesmas.jpeg" class="logo">
 
-<h1>TB Insight Kota Bandung</h1>
+<h1 class="mt-3">Dashboard Tuberkulosis Kota Bandung</h1>
+<p>Analisis Data TBC Kota Bandung Berbasis Dashboard Interaktif</p>
+</section>
 
+<!-- HOME -->
+<section class="section text-center">
+<div class="container">
+
+<h3>Studi Kasus</h3>
 <p>
-Tuberkulosis (TBC) masih menjadi masalah kesehatan di Kota Bandung. 
-Kasus TBC banyak ditemukan pada wilayah padat penduduk dan usia produktif.
+Kasus TBC di Kota Bandung masih menjadi masalah kesehatan utama. 
+Wilayah padat penduduk memiliki angka kasus yang lebih tinggi, 
+dan usia produktif menjadi kelompok paling terdampak.
 </p>
 
-<h4>Identitas Kelompok</h4>
+<h5 class="mt-4">Identitas Kelompok</h5>
 <p>
 Kelompok 7 TB Insight Kota Bandung <br>
 Siti Nuramelia Apriani (Ketua) <br>
@@ -73,28 +87,28 @@ S1 Kesehatan Masyarakat 2024
 </section>
 
 <!-- EDUKASI -->
-<section id="edukasi" class="section bg-light">
+<section class="section bg-light">
 <div class="container text-center">
 <h2>Edukasi TBC</h2>
 
 <div class="row mt-4">
 
 <div class="col-md-4">
-<div class="card p-3">
+<div class="card p-4">
 <h5>Definisi</h5>
 <p>TBC adalah penyakit menular akibat bakteri Mycobacterium tuberculosis.</p>
 </div>
 </div>
 
 <div class="col-md-4">
-<div class="card p-3">
+<div class="card p-4">
 <h5>Gejala</h5>
-<p>Batuk lama, demam, keringat malam, penurunan berat badan.</p>
+<p>Batuk >2 minggu, demam, keringat malam, penurunan berat badan.</p>
 </div>
 </div>
 
 <div class="col-md-4">
-<div class="card p-3">
+<div class="card p-4">
 <h5>Pencegahan</h5>
 <p>Gunakan masker, ventilasi baik, dan vaksin BCG.</p>
 </div>
@@ -105,30 +119,41 @@ S1 Kesehatan Masyarakat 2024
 </section>
 
 <!-- DASHBOARD -->
-<section id="dashboard" class="section">
-<div class="container text-center">
-<h2>Dashboard Data TBC</h2>
+<section class="section">
+<div class="container">
 
-<select id="tahun" class="form-control mt-3">
+<h2 class="text-center mb-4">Dashboard Data</h2>
+
+<div class="card p-4 mb-4">
+<select id="tahun" class="form-control mb-3">
 <option value="2020">2020</option>
 <option value="2021">2021</option>
 <option value="2022">2022</option>
 <option value="2023">2023</option>
 </select>
 
-<select id="kecamatan" class="form-control mt-3">
+<select id="kecamatan" class="form-control">
 <option value="all">Semua Kecamatan</option>
 </select>
+</div>
 
-<canvas id="lineChart" class="mt-4"></canvas>
-<canvas id="barChart" class="mt-4"></canvas>
-<canvas id="pieChart" class="mt-4"></canvas>
+<div class="card p-4 mb-4">
+<canvas id="lineChart"></canvas>
+</div>
 
-<div class="mt-4">
-<h4>Analisis</h4>
+<div class="card p-4 mb-4">
+<canvas id="barChart"></canvas>
+</div>
+
+<div class="card p-4">
+<canvas id="pieChart"></canvas>
+</div>
+
+<div class="text-center mt-4">
+<h4>Analisis Data</h4>
 <p>
-Kasus TBC di Kota Bandung cenderung meningkat. Wilayah padat penduduk memiliki kasus lebih tinggi.
-Kelompok usia dewasa menjadi yang paling terdampak.
+Data menunjukkan bahwa kasus TBC di Kota Bandung mengalami tren peningkatan.
+Distribusi kasus lebih banyak terjadi pada usia dewasa dibandingkan anak-anak.
 </p>
 </div>
 
@@ -136,81 +161,67 @@ Kelompok usia dewasa menjadi yang paling terdampak.
 </section>
 
 <script>
-
-// DATA JSON
 fetch('Data TB Kota Bandung Tahun 2020 - 2023.json')
 .then(res => res.json())
 .then(json => {
 
-const rawData = json.Sheet1.filter(d => d != null);
+const data = json.Sheet1.filter(d => d);
 
-const tahunSelect = document.getElementById('tahun');
-const kecSelect = document.getElementById('kecamatan');
+const tahun = document.getElementById('tahun');
+const kec = document.getElementById('kecamatan');
 
-// dropdown kecamatan
-const kecList = [...new Set(rawData.map(d => d["Nama Kecamatan"]))];
-kecList.forEach(k => {
-let opt = document.createElement("option");
-opt.value = k;
-opt.textContent = k;
-kecSelect.appendChild(opt);
+[...new Set(data.map(d => d["Nama Kecamatan"]))].forEach(k=>{
+let opt=document.createElement("option");
+opt.value=k;
+opt.textContent=k;
+kec.appendChild(opt);
 });
 
-// FILTER
-function getData(){
-return rawData.filter(d =>
-(tahunSelect.value == d.Tahun) &&
-(kecSelect.value == "all" || d["Nama Kecamatan"] == kecSelect.value)
+function filterData(){
+return data.filter(d =>
+tahun.value==d.Tahun &&
+(kec.value=="all"||d["Nama Kecamatan"]==kec.value)
 );
 }
 
-// LINE
-function lineChart(){
-let g = {};
-rawData.forEach(d=>{
+function chartLine(){
+let g={};
+data.forEach(d=>{
 g[d.Tahun]=(g[d.Tahun]||0)+d["Jumlah Semua Kasus TBC"];
 });
-new Chart(lineChartEl,{type:'line',data:{labels:Object.keys(g),datasets:[{data:Object.values(g)}]}});
+new Chart(lineChart,{type:'line',data:{labels:Object.keys(g),datasets:[{data:Object.values(g)}]}});
 }
 
-// BAR
-function barChart(){
+function chartBar(){
 let g={};
-getData().forEach(d=>{
+filterData().forEach(d=>{
 g[d["Nama Kecamatan"]]=(g[d["Nama Kecamatan"]]||0)+d["Jumlah Semua Kasus TBC"];
 });
-new Chart(barChartEl,{type:'bar',data:{labels:Object.keys(g),datasets:[{data:Object.values(g)}]}});
+new Chart(barChart,{type:'bar',data:{labels:Object.keys(g),datasets:[{data:Object.values(g)}]}});
 }
 
-// PIE
-function pieChart(){
-let anak=0, dewasa=0;
-getData().forEach(d=>{
-anak+=parseInt(d["Kasus TBC Anak 0 - 14 Tahun"])||0;
-dewasa+=d["Jumlah Semua Kasus TBC"];
+function chartPie(){
+let a=0,dw=0;
+filterData().forEach(d=>{
+a+=parseInt(d["Kasus TBC Anak 0 - 14 Tahun"])||0;
+dw+=d["Jumlah Semua Kasus TBC"];
 });
-dewasa-=anak;
-new Chart(pieChartEl,{type:'pie',data:{labels:['Anak','Dewasa'],datasets:[{data:[anak,dewasa]}]}});
+dw-=a;
+new Chart(pieChart,{type:'pie',data:{labels:['Anak','Dewasa'],datasets:[{data:[a,dw]}]}});
 }
-
-// INIT
-const lineChartEl = document.getElementById('lineChart');
-const barChartEl = document.getElementById('barChart');
-const pieChartEl = document.getElementById('pieChart');
 
 function render(){
-lineChart();
-barChart();
-pieChart();
+chartLine();
+chartBar();
+chartPie();
 }
 
 render();
 
-tahunSelect.onchange = render;
-kecSelect.onchange = render;
+tahun.onchange=render;
+kec.onchange=render;
 
 });
-
 </script>
 
 </body>
