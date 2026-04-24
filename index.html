@@ -2,177 +2,71 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>tbinsightkotabandung</title>
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
 <style>
-body {font-family: 'Segoe UI'; background:#f5fbff;}
+body {background:#f5fbff;}
 .navbar {background:#0d6efd;}
-.section {padding:60px 0;}
-.logo {width:50px; border-radius:50%; margin-right:10px;}
-.card {border-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.1);}
-.hero {background:#e3f2fd; padding:80px 20px; text-align:center;}
-.footer {background:#0d6efd; color:white; padding:20px; text-align:center;}
+.logo {width:45px;border-radius:50%;}
+.section {padding:60px;}
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-dark">
 <div class="container">
 <div class="d-flex align-items-center">
-<img src="Logo Kota Bandung.webp" class="logo">
-<img src="Logo UBK.jpg" class="logo">
-<img src="logo kesmas.jpeg" class="logo">
-<a class="navbar-brand ms-2">tbinsightkotabandung</a>
+<img src="Logo Kota Bandung.webp" class="logo me-2">
+<img src="Logo UBK.jpg" class="logo me-2">
+<img src="logo kesmas.jpeg" class="logo me-2">
+<span class="text-white fw-bold">tbinsightkotabandung</span>
 </div>
 
-<ul class="navbar-nav ms-auto">
-<li class="nav-item"><a class="nav-link" href="#home">Beranda</a></li>
-<li class="nav-item"><a class="nav-link" href="#dashboard">Dashboard</a></li>
-<li class="nav-item"><a class="nav-link" href="#edukasi">Edukasi</a></li>
-<li class="nav-item"><a class="nav-link" href="#tentang">Tentang</a></li>
-</ul>
+<div>
+<a href="index.html" class="text-white me-3">Beranda</a>
+<a href="dashboard.html" class="text-white me-3">Dashboard</a>
+<a href="edukasi.html" class="text-white">Edukasi</a>
+</div>
 </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero" id="home">
+<div class="section text-center">
 <h1>Dashboard Data Kesehatan: Tuberkulosis (TBC) di Kota Bandung 2020-2023</h1>
-</section>
+</div>
 
-<!-- STUDI KASUS -->
-<section class="section">
-<div class="container">
+<div class="section container">
 <h3>🩺 Gambaran Tuberkulosis (TBC) di Kota Bandung</h3>
 
 <p><b>📌 Kondisi Kasus TBC</b><br>
-Tuberkulosis (TBC) masih menjadi salah satu masalah kesehatan masyarakat di Kota Bandung yang belum terselesaikan...</p>
+Tuberkulosis (TBC) masih menjadi salah satu masalah kesehatan masyarakat di Kota Bandung yang belum terselesaikan. Jumlah kasusnya cenderung meningkat setiap tahun, dimana pada tahun 2025 tercatat sekitar 18.846 kasus. Hal ini menunjukkan bahwa upaya pengendalian TBC masih menghadapi berbagai kendala, terutama di daerah perkotaan yang memiliki tingkat mobilitas penduduk yang cukup tinggi.</p>
 
 <p><b>📌 Karakteristik dan Sebaran Penderita</b><br>
-Sebagian besar penderita berasal dari usia produktif 18–40 tahun...</p>
+Jika dilihat dari karakteristiknya, sebagian besar penderita TBC di Kota Bandung berasal dari kelompok usia produktif, yaitu sekitar 18–40 tahun. Kondisi ini tentu berdampak tidak hanya pada kesehatan individu, tetapi juga dapat mempengaruhi produktivitas masyarakat secara keseluruhan. Selain itu, kasus TBC banyak ditemukan di wilayah dengan kepadatan penduduk tinggi seperti Babakan Ciparay dan Kiaracondong, yang memiliki lingkungan yang mendukung terjadinya penularan.</p>
 
 <p><b>📌 Faktor Risiko dan Penyebab</b><br>
-Dipengaruhi kepadatan penduduk, ventilasi buruk, sanitasi kurang...</p>
+Tingginya kasus TBC di Kota Bandung tidak terlepas dari beberapa faktor risiko, seperti kepadatan penduduk, kondisi rumah yang kurang memiliki ventilasi yang baik, serta sanitasi lingkungan yang belum memadai. Di samping itu, masih banyak masyarakat yang kurang menyadari gejala awal TBC, seperti batuk berkepanjangan, sehingga seringkali penanganan dilakukan ketika kondisi sudah cukup serius.</p>
 
 <p><b>📌 Upaya Penanggulangan</b><br>
-Skrining aktif, pelacakan kontak, edukasi masyarakat...</p>
+Berbagai upaya telah dilakukan oleh pemerintah Kota Bandung dalam mengendalikan TBC, di antaranya melalui skrining aktif di fasilitas kesehatan, pelacakan kontak erat dengan penderita, serta pemberian edukasi kepada masyarakat. Namun, keberhasilan dari program tersebut tetap sangat bergantung pada kesadaran masyarakat untuk melakukan pemeriksaan sejak dini dan menjalani pengobatan secara rutin.</p>
 
 <p><b>📌 Kesimpulan</b><br>
-TBC masih menjadi tantangan besar di Kota Bandung.</p>
+Secara umum, TBC di Kota Bandung masih menjadi tantangan dalam bidang kesehatan masyarakat.</p>
 
-</div>
-</section>
+<hr>
 
-<!-- DASHBOARD -->
-<section id="dashboard" class="section bg-light">
-<div class="container">
-<h2 class="text-center">Dashboard TBC Kota Bandung</h2>
+<h3>👥 Tentang Kami</h3>
 
-<!-- FILTER -->
-<div class="row my-4">
+<div class="row">
 <div class="col-md-6">
-<select id="tahun" class="form-control">
-<option value="2020">2020</option>
-<option value="2021">2021</option>
-<option value="2022">2022</option>
-<option value="2023">2023</option>
-</select>
-</div>
-
-<div class="col-md-6">
-<select id="kecamatan" class="form-control">
-<option value="all">Semua Kecamatan</option>
-</select>
-</div>
-</div>
-
-<!-- CHART -->
-<div class="card p-3 mb-4">
-<h5>Tren Kasus TBC</h5>
-<canvas id="lineChart"></canvas>
-</div>
-
-<div class="card p-3 mb-4">
-<h5>Perbandingan Kecamatan</h5>
-<canvas id="barChart"></canvas>
-</div>
-
-<div class="card p-3 mb-4">
-<h5>Distribusi Usia</h5>
-<canvas id="pieChart"></canvas>
-</div>
-
-<!-- ANALISIS -->
-<div class="card p-3">
-<h5>Analisis Data</h5>
 <p>
-Berdasarkan hasil analisis data TB Kota Bandung tahun 2020–2023,
-jumlah kasus meningkat dari 4.467 (2020) menjadi 12.687 (2023).
-Wilayah seperti UPT Babakansari dan Garuda memiliki kasus tinggi.
+TB Insight Kota Bandung merupakan sebuah media berbasis data yang dibuat untuk menyajikan informasi mengenai Tuberkulosis (TBC) di Kota Bandung...
 </p>
-</div>
-
-</div>
-</section>
-
-<!-- EDUKASI -->
-<section id="edukasi" class="section">
-<div class="container">
-<h2 class="text-center">Edukasi Tuberkulosis</h2>
-
-<div class="row">
-
-<div class="col-md-6">
-<div class="card p-3">
-<h5>Apa itu TBC</h5>
-<p>TBC adalah penyakit menular akibat bakteri Mycobacterium tuberculosis...</p>
-</div>
-</div>
-
-<div class="col-md-6">
-<div class="card p-3">
-<h5>Gejala</h5>
-<p>Batuk >2 minggu, demam, keringat malam, penurunan berat badan...</p>
-</div>
-</div>
-
-<div class="col-md-6 mt-3">
-<div class="card p-3">
-<h5>Pencegahan</h5>
-<p>Gunakan masker, ventilasi baik, PHBS...</p>
-</div>
-</div>
-
-<div class="col-md-6 mt-3">
-<div class="card p-3">
-<h5>Pengobatan</h5>
-<p>Pengobatan minimal 6 bulan dan harus rutin...</p>
-</div>
-</div>
-
-</div>
-</div>
-</section>
-
-<!-- TENTANG -->
-<section id="tentang" class="section bg-light">
-<div class="container">
-<h2 class="text-center">👥 Tentang Kami</h2>
-
-<div class="row">
-<div class="col-md-6">
-<p>TB Insight Kota Bandung merupakan media berbasis data...</p>
 </div>
 
 <div class="col-md-6">
 <ul>
-<li>Siti Nuramelia Apriani</li>
+<li>Siti Nuramelia Apriani (Ketua)</li>
 <li>Syahfa Nur Rachmadani</li>
 <li>Salsabila Bilqisti</li>
 <li>Nisa Nur Rohmah</li>
@@ -181,68 +75,6 @@ Wilayah seperti UPT Babakansari dan Garuda memiliki kasus tinggi.
 </div>
 
 </div>
-</section>
-
-<!-- FOOTER -->
-<div class="footer">
-TB Insight Kota Bandung | Universitas Bhakti Kencana
-</div>
-
-<script>
-
-// LOAD DATA
-fetch('Data TB Kota Bandung Tahun 2020 - 2023.json')
-.then(res=>res.json())
-.then(json=>{
-
-let data=json.Sheet1.filter(d=>d);
-
-let tahun=document.getElementById('tahun');
-let kec=document.getElementById('kecamatan');
-
-[...new Set(data.map(d=>d["Nama Kecamatan"]))].forEach(k=>{
-let opt=document.createElement("option");
-opt.value=k;
-opt.textContent=k;
-kec.appendChild(opt);
-});
-
-function filter(){
-return data.filter(d=>tahun.value==d.Tahun && (kec.value=="all"||d["Nama Kecamatan"]==kec.value));
-}
-
-function line(){
-let g={};
-data.forEach(d=>{g[d.Tahun]=(g[d.Tahun]||0)+d["Jumlah Semua Kasus TBC"];});
-new Chart(lineChart,{type:'line',data:{labels:Object.keys(g),datasets:[{data:Object.values(g)}]}});
-}
-
-function bar(){
-let g={};
-filter().forEach(d=>{g[d["Nama Kecamatan"]]=(g[d["Nama Kecamatan"]]||0)+d["Jumlah Semua Kasus TBC"];});
-new Chart(barChart,{type:'bar',data:{labels:Object.keys(g),datasets:[{data:Object.values(g)}]}});
-}
-
-function pie(){
-let a=0,dw=0;
-filter().forEach(d=>{
-a+=parseInt(d["Kasus TBC Anak 0 - 14 Tahun"])||0;
-dw+=d["Jumlah Semua Kasus TBC"];
-});
-dw-=a;
-new Chart(pieChart,{type:'pie',data:{labels:['Anak','Dewasa'],datasets:[{data:[a,dw]}]}});
-}
-
-function render(){
-line(); bar(); pie();
-}
-
-render();
-tahun.onchange=render;
-kec.onchange=render;
-
-});
-</script>
 
 </body>
 </html>
