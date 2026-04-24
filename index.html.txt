@@ -1,0 +1,142 @@
+<script>
+
+// LOAD DATA JSON
+fetch('Data TB Kota Bandung Tahun 2020 - 2023.json')
+.then(res => res.json())
+.then(json => {
+
+const rawData = json.Sheet1.filter(d => d != null);
+
+// ================== FILTER ==================
+const tahunSelect = document.getElementById('tahun');
+const kecSelect = document.getElementById('kecamatan');
+
+// isi dropdown kecamatan otomatis
+const kecamatanList = [...new Set(rawData.map(d => d["Nama Kecamatan"]))];
+kecamatanList.forEach(kec => {
+    let opt = document.createElement("option");
+    opt.value = kec;
+    opt.textContent = kec;
+    kecSelect.appendChild(opt);
+});
+
+// ================== FUNCTION FILTER ==================
+function getFilteredData() {
+    let tahun = tahunSelect.value;
+    let kec = kecSelect.value;
+
+    return rawData.filter(d => {
+        return (tahun == d.Tahun) &&
+               (kec == "all" || d["Nama Kecamatan"] == kec);
+    });
+}
+
+// ================== LINE CHART (TREND) ==================
+function renderLine() {
+    let grouped = {};
+
+    rawData.forEach(d => {
+        if (!grouped[d.Tahun]) grouped[d.Tahun] = 0;
+        grouped[d.Tahun] += (d["Jumlah Semua Kasus TBC"] || 0);
+    });
+
+    new Chart(document.getElementById('lineChart'), {
+        type: 'line',
+        data: {
+            labels: Object.keys(grouped),
+            datasets: [{
+                label: 'Total Kasus TBC',
+                data: Object.values(grouped),
+                borderWidth: 3
+            }]
+        }
+    });
+}
+
+// ================== BAR CHART ==================
+function renderBar() {
+    let data = getFilteredData();
+    let grouped = {};
+
+    data.forEach(d => {
+        let kec = d["Nama Kecamatan"];
+        if (!grouped[kec]) grouped[kec] = 0;
+        grouped[kec] += (d["Jumlah Semua Kasus TBC"] || 0);
+    });
+
+    new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: {
+            labels: Object.keys(grouped),
+            datasets: [{
+                label: 'Kasus per Kecamatan',
+                data: Object.values(grouped)
+            }]
+        }
+    });
+}
+
+// ================== PIE CHART ==================
+function renderPie() {
+    let data = getFilteredData();
+
+    let anak = 0;
+    let dewasa = 0;
+
+    data.forEach(d => {
+        let anakVal = parseInt(d["Kasus TBC Anak 0 - 14 Tahun"]);
+        if (!isNaN(anakVal)) anak += anakVal;
+
+        dewasa += (d["Jumlah Semua Kasus TBC"] || 0);
+    });
+
+    dewasa = dewasa - anak;
+
+    new Chart(document.getElementById('pieChart'), {
+        type: 'pie',
+        data: {
+            labels: ['Anak (0-14)', 'Dewasa'],
+            datasets: [{
+                data: [anak, dewasa]
+            }]
+        }
+    });
+}
+
+// ================== MAP ==================
+var map = L.map('map').setView([-6.9175, 107.6191], 11);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+function renderMap() {
+    let data = getFilteredData();
+
+    data.forEach(d => {
+        L.marker([-6.9 + Math.random()*0.1, 107.6 + Math.random()*0.1])
+        .addTo(map)
+        .bindPopup(`
+            <b>${d["Nama Kecamatan"]}</b><br>
+            Kasus: ${d["Jumlah Semua Kasus TBC"]}
+        `);
+    });
+}
+
+// ================== INIT ==================
+function renderAll() {
+    document.getElementById('barChart').innerHTML = "";
+    document.getElementById('pieChart').innerHTML = "";
+
+    renderBar();
+    renderPie();
+    renderMap();
+}
+
+renderLine();
+renderAll();
+
+// EVENT FILTER
+tahunSelect.addEventListener('change', renderAll);
+kecSelect.addEventListener('change', renderAll);
+
+});
+</script>
