@@ -1,17 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TB Insight Kota Bandung</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body { background: linear-gradient(to right, #fceabb, #f8b500); }
+.section { padding: 40px; }
+</style>
+</head>
+
+<body>
+
+<div class="container text-center">
+<h1>TB Insight Kota Bandung</h1>
+
+<select id="tahun" class="form-control mt-3">
+<option value="2020">2020</option>
+<option value="2021">2021</option>
+<option value="2022">2022</option>
+<option value="2023">2023</option>
+</select>
+
+<select id="kecamatan" class="form-control mt-3">
+<option value="all">Semua Kecamatan</option>
+</select>
+
+<canvas id="lineChart" class="mt-4"></canvas>
+<canvas id="barChart" class="mt-4"></canvas>
+<canvas id="pieChart" class="mt-4"></canvas>
+
+</div>
+
 <script>
 
-// LOAD DATA JSON
+// (SCRIPT KAMU YANG TADI — JANGAN DIHAPUS)
+
 fetch('Data TB Kota Bandung Tahun 2020 - 2023.json')
 .then(res => res.json())
 .then(json => {
 
 const rawData = json.Sheet1.filter(d => d != null);
 
-// ================== FILTER ==================
 const tahunSelect = document.getElementById('tahun');
 const kecSelect = document.getElementById('kecamatan');
 
-// isi dropdown kecamatan otomatis
 const kecamatanList = [...new Set(rawData.map(d => d["Nama Kecamatan"]))];
 kecamatanList.forEach(kec => {
     let opt = document.createElement("option");
@@ -20,7 +57,6 @@ kecamatanList.forEach(kec => {
     kecSelect.appendChild(opt);
 });
 
-// ================== FUNCTION FILTER ==================
 function getFilteredData() {
     let tahun = tahunSelect.value;
     let kec = kecSelect.value;
@@ -31,10 +67,8 @@ function getFilteredData() {
     });
 }
 
-// ================== LINE CHART (TREND) ==================
 function renderLine() {
     let grouped = {};
-
     rawData.forEach(d => {
         if (!grouped[d.Tahun]) grouped[d.Tahun] = 0;
         grouped[d.Tahun] += (d["Jumlah Semua Kasus TBC"] || 0);
@@ -46,14 +80,12 @@ function renderLine() {
             labels: Object.keys(grouped),
             datasets: [{
                 label: 'Total Kasus TBC',
-                data: Object.values(grouped),
-                borderWidth: 3
+                data: Object.values(grouped)
             }]
         }
     });
 }
 
-// ================== BAR CHART ==================
 function renderBar() {
     let data = getFilteredData();
     let grouped = {};
@@ -69,17 +101,15 @@ function renderBar() {
         data: {
             labels: Object.keys(grouped),
             datasets: [{
-                label: 'Kasus per Kecamatan',
+                label: 'Kasus',
                 data: Object.values(grouped)
             }]
         }
     });
 }
 
-// ================== PIE CHART ==================
 function renderPie() {
     let data = getFilteredData();
-
     let anak = 0;
     let dewasa = 0;
 
@@ -95,7 +125,7 @@ function renderPie() {
     new Chart(document.getElementById('pieChart'), {
         type: 'pie',
         data: {
-            labels: ['Anak (0-14)', 'Dewasa'],
+            labels: ['Anak', 'Dewasa'],
             datasets: [{
                 data: [anak, dewasa]
             }]
@@ -103,40 +133,20 @@ function renderPie() {
     });
 }
 
-// ================== MAP ==================
-var map = L.map('map').setView([-6.9175, 107.6191], 11);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
-function renderMap() {
-    let data = getFilteredData();
-
-    data.forEach(d => {
-        L.marker([-6.9 + Math.random()*0.1, 107.6 + Math.random()*0.1])
-        .addTo(map)
-        .bindPopup(`
-            <b>${d["Nama Kecamatan"]}</b><br>
-            Kasus: ${d["Jumlah Semua Kasus TBC"]}
-        `);
-    });
-}
-
-// ================== INIT ==================
 function renderAll() {
-    document.getElementById('barChart').innerHTML = "";
-    document.getElementById('pieChart').innerHTML = "";
-
+    renderLine();
     renderBar();
     renderPie();
-    renderMap();
 }
 
-renderLine();
 renderAll();
 
-// EVENT FILTER
 tahunSelect.addEventListener('change', renderAll);
 kecSelect.addEventListener('change', renderAll);
 
 });
+
 </script>
+
+</body>
+</html>
