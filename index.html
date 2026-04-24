@@ -1,6 +1,22 @@
 <section id="hero">
+<div class="hero-content">
 
-<style>
+<h1 class="hero-title">
+Dashboard Data Kesehatan:<br>
+Tuberkulosis (TBC)<br>
+di Kota Bandung 2020–2023
+</h1>
+
+<p class="hero-sub">
+Visualisasi data interaktif untuk memahami kondisi TBC di Kota Bandung
+</p>
+
+<a href="#home" class="hero-btn">Lihat Informasi ↓</a>
+
+</div>
+</section>
+<div id="home">
+    <style>
 #hero {
     height: 100vh;
     display: flex;
@@ -13,7 +29,6 @@
     overflow: hidden;
 }
 
-/* dekorasi bulat */
 #hero::before {
     content: "";
     position: absolute;
@@ -53,7 +68,6 @@
     opacity: 0.9;
 }
 
-/* tombol */
 .hero-btn {
     margin-top: 30px;
     padding: 12px 25px;
@@ -64,23 +78,17 @@
     text-decoration: none;
     display: inline-block;
 }
+
 .hero-btn:hover {
     background: #f1f1f1;
 }
+
+/* FIX SCROLL */
+html {
+    scroll-behavior: smooth;
+}
+
+#home {
+    scroll-margin-top: 80px;
+}
 </style>
-
-<div class="hero-content">
-<h1 class="hero-title">
-Dashboard Data Kesehatan:<br>
-Tuberkulosis (TBC)<br>
-di Kota Bandung 2020–2023
-</h1>
-
-<p class="hero-sub">
-Visualisasi data interaktif untuk memahami kondisi TBC di Kota Bandung
-</p>
-
-<a href="#home" class="hero-btn">Lihat Informasi</a>
-</div>
-
-</section>
