@@ -9,15 +9,105 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-body { background: linear-gradient(to right, #fceabb, #f8b500); }
-.section { padding: 40px; }
+body {
+    background: linear-gradient(to right, #fceabb, #f8b500);
+}
+.navbar {
+    background-color: #ff9800;
+}
+.section {
+    padding: 50px;
+}
+.logo {
+    width: 90px;
+    margin: 10px;
+}
+.card {
+    border-radius: 15px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="container text-center">
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+<div class="container">
+<a class="navbar-brand">TB Insight Kota Bandung</a>
+<div>
+<a class="nav-link text-white" href="#home">Home</a>
+<a class="nav-link text-white" href="#edukasi">Edukasi</a>
+<a class="nav-link text-white" href="#dashboard">Dashboard</a>
+</div>
+</div>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="section text-center">
+<div class="container">
+
+<img src="Logo Kota Bandung.webp" class="logo">
+<img src="Logo UBK.jpg" class="logo">
+<img src="logo kesmas.jpeg" class="logo">
+
 <h1>TB Insight Kota Bandung</h1>
+
+<p>
+Tuberkulosis (TBC) masih menjadi masalah kesehatan di Kota Bandung. 
+Kasus TBC banyak ditemukan pada wilayah padat penduduk dan usia produktif.
+</p>
+
+<h4>Identitas Kelompok</h4>
+<p>
+Kelompok 7 TB Insight Kota Bandung <br>
+Siti Nuramelia Apriani (Ketua) <br>
+Syahfa Nur Rachmadani <br>
+Salsabila Bilqisti <br>
+Nisa Nur Rohmah <br><br>
+
+Universitas Bhakti Kencana Bandung <br>
+S1 Kesehatan Masyarakat 2024
+</p>
+
+</div>
+</section>
+
+<!-- EDUKASI -->
+<section id="edukasi" class="section bg-light">
+<div class="container text-center">
+<h2>Edukasi TBC</h2>
+
+<div class="row mt-4">
+
+<div class="col-md-4">
+<div class="card p-3">
+<h5>Definisi</h5>
+<p>TBC adalah penyakit menular akibat bakteri Mycobacterium tuberculosis.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card p-3">
+<h5>Gejala</h5>
+<p>Batuk lama, demam, keringat malam, penurunan berat badan.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card p-3">
+<h5>Pencegahan</h5>
+<p>Gunakan masker, ventilasi baik, dan vaksin BCG.</p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="section">
+<div class="container text-center">
+<h2>Dashboard Data TBC</h2>
 
 <select id="tahun" class="form-control mt-3">
 <option value="2020">2020</option>
@@ -34,12 +124,20 @@ body { background: linear-gradient(to right, #fceabb, #f8b500); }
 <canvas id="barChart" class="mt-4"></canvas>
 <canvas id="pieChart" class="mt-4"></canvas>
 
+<div class="mt-4">
+<h4>Analisis</h4>
+<p>
+Kasus TBC di Kota Bandung cenderung meningkat. Wilayah padat penduduk memiliki kasus lebih tinggi.
+Kelompok usia dewasa menjadi yang paling terdampak.
+</p>
 </div>
+
+</div>
+</section>
 
 <script>
 
-// (SCRIPT KAMU YANG TADI — JANGAN DIHAPUS)
-
+// DATA JSON
 fetch('Data TB Kota Bandung Tahun 2020 - 2023.json')
 .then(res => res.json())
 .then(json => {
@@ -49,100 +147,67 @@ const rawData = json.Sheet1.filter(d => d != null);
 const tahunSelect = document.getElementById('tahun');
 const kecSelect = document.getElementById('kecamatan');
 
-const kecamatanList = [...new Set(rawData.map(d => d["Nama Kecamatan"]))];
-kecamatanList.forEach(kec => {
-    let opt = document.createElement("option");
-    opt.value = kec;
-    opt.textContent = kec;
-    kecSelect.appendChild(opt);
+// dropdown kecamatan
+const kecList = [...new Set(rawData.map(d => d["Nama Kecamatan"]))];
+kecList.forEach(k => {
+let opt = document.createElement("option");
+opt.value = k;
+opt.textContent = k;
+kecSelect.appendChild(opt);
 });
 
-function getFilteredData() {
-    let tahun = tahunSelect.value;
-    let kec = kecSelect.value;
-
-    return rawData.filter(d => {
-        return (tahun == d.Tahun) &&
-               (kec == "all" || d["Nama Kecamatan"] == kec);
-    });
+// FILTER
+function getData(){
+return rawData.filter(d =>
+(tahunSelect.value == d.Tahun) &&
+(kecSelect.value == "all" || d["Nama Kecamatan"] == kecSelect.value)
+);
 }
 
-function renderLine() {
-    let grouped = {};
-    rawData.forEach(d => {
-        if (!grouped[d.Tahun]) grouped[d.Tahun] = 0;
-        grouped[d.Tahun] += (d["Jumlah Semua Kasus TBC"] || 0);
-    });
-
-    new Chart(document.getElementById('lineChart'), {
-        type: 'line',
-        data: {
-            labels: Object.keys(grouped),
-            datasets: [{
-                label: 'Total Kasus TBC',
-                data: Object.values(grouped)
-            }]
-        }
-    });
+// LINE
+function lineChart(){
+let g = {};
+rawData.forEach(d=>{
+g[d.Tahun]=(g[d.Tahun]||0)+d["Jumlah Semua Kasus TBC"];
+});
+new Chart(lineChartEl,{type:'line',data:{labels:Object.keys(g),datasets:[{data:Object.values(g)}]}});
 }
 
-function renderBar() {
-    let data = getFilteredData();
-    let grouped = {};
-
-    data.forEach(d => {
-        let kec = d["Nama Kecamatan"];
-        if (!grouped[kec]) grouped[kec] = 0;
-        grouped[kec] += (d["Jumlah Semua Kasus TBC"] || 0);
-    });
-
-    new Chart(document.getElementById('barChart'), {
-        type: 'bar',
-        data: {
-            labels: Object.keys(grouped),
-            datasets: [{
-                label: 'Kasus',
-                data: Object.values(grouped)
-            }]
-        }
-    });
+// BAR
+function barChart(){
+let g={};
+getData().forEach(d=>{
+g[d["Nama Kecamatan"]]=(g[d["Nama Kecamatan"]]||0)+d["Jumlah Semua Kasus TBC"];
+});
+new Chart(barChartEl,{type:'bar',data:{labels:Object.keys(g),datasets:[{data:Object.values(g)}]}});
 }
 
-function renderPie() {
-    let data = getFilteredData();
-    let anak = 0;
-    let dewasa = 0;
-
-    data.forEach(d => {
-        let anakVal = parseInt(d["Kasus TBC Anak 0 - 14 Tahun"]);
-        if (!isNaN(anakVal)) anak += anakVal;
-
-        dewasa += (d["Jumlah Semua Kasus TBC"] || 0);
-    });
-
-    dewasa = dewasa - anak;
-
-    new Chart(document.getElementById('pieChart'), {
-        type: 'pie',
-        data: {
-            labels: ['Anak', 'Dewasa'],
-            datasets: [{
-                data: [anak, dewasa]
-            }]
-        }
-    });
+// PIE
+function pieChart(){
+let anak=0, dewasa=0;
+getData().forEach(d=>{
+anak+=parseInt(d["Kasus TBC Anak 0 - 14 Tahun"])||0;
+dewasa+=d["Jumlah Semua Kasus TBC"];
+});
+dewasa-=anak;
+new Chart(pieChartEl,{type:'pie',data:{labels:['Anak','Dewasa'],datasets:[{data:[anak,dewasa]}]}});
 }
 
-function renderAll() {
-    renderLine();
-    renderBar();
-    renderPie();
+// INIT
+const lineChartEl = document.getElementById('lineChart');
+const barChartEl = document.getElementById('barChart');
+const pieChartEl = document.getElementById('pieChart');
+
+function render(){
+lineChart();
+barChart();
+pieChart();
 }
 
-renderAll();
+render();
 
-tahunSelect.addEventListener('change', renderAll);
-kecSelect.addEventListener('change', renderAll);
+tahunSelect.onchange = render;
+kecSelect.onchange = render;
 
 });
 
